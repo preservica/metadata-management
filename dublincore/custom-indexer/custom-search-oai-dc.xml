@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sample custom indexer for the OAI Dublin Core schema -->
+<index xmlns="http://www.preservica.com/customindex/v1">
+	<schemaName>Dublin Core (OAI_DC)</schemaName>
+	<schemaUri>http://www.openarchives.org/OAI/2.0/oai_dc/</schemaUri>
+	<shortName>oai_dc</shortName>
+	
+	<!-- Text fields for each defined field in DC. These fields are set to sortable=true because the assumption
+	is that they will be single values, and sorting may be useful.
+	
+	If you want to have multiple values for the same field (e.g. two dc:subject elements in the same metadata
+	block), do not set sortable=true.
+	
+	See the System Administration Guide about custom search indexers for more details. -->
+	<term indexName="title" displayName="Title" xpath="//dc:title" sortable="true"/>
+	<term indexName="creator" displayName="Creator" xpath="//dc:creator" sortable="true"/>
+	<term indexName="subject" displayName="Subject" xpath="//dc:subject" sortable="true"/>
+	<term indexName="publisher" displayName="Publisher" xpath="//dc:publisher" sortable="true"/>
+	<term indexName="contributor" displayName="Contributor" xpath="//dc:contributor" sortable="true"/>
+	<term indexName="identifier" displayName="Identifier" xpath="//dc:identifier" sortable="true"/>
+
+	<term indexName="type" displayName="Type" xpath="//dc:type" sortable="true"/>
+	<term indexName="language" displayName="Language" xpath="//dc:language" sortable="true"/>
+	<term indexName="source" displayName="Source" xpath="//dc:source" sortable="true"/>
+	<term indexName="format" displayName="Format" xpath="//dc:format" sortable="true"/>
+	<term indexName="date" displayName="Date" xpath="//dc:date" sortable="true"/>
+	<term indexName="coverage" displayName="Coverage" xpath="//dc:coverage" sortable="true"/>
+
+	<namespaceMapping key="dc" value="http://purl.org/dc/elements/1.1/"/>
+</index>

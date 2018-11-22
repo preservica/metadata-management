@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ (c) Copyright 2012 Tessella
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Tessella
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@tessella.com
+  ~ web:    www.tessella.com
+  -->
+<index xmlns="http://www.preservica.com/customindex/v1" xmlns:sb="http://www.springframework.org/schema/beans">
+    <schemaName>Email</schemaName>
+    <schemaUri>http://www.tessella.com/mailbox/v1</schemaUri>
+    <shortName>email</shortName>
+    <term indexName="email_to" displayName="To" xpath="//email:to" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_from" displayName="From" xpath="//email:from" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_date" displayName="Date" xpath="//email:date" indexType="DATE" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_subject" displayName="Subject" xpath="//email:subject" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_priority" displayName="Priority" xpath="//email:priority" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_importance" displayName="Importance" xpath="//email:importance" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_cc" displayName="CC" xpath="//email:cc" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_bcc" displayName="BCC" xpath="//email:bcc" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_attachmentFileNames" displayName="Attachment File Name" xpath="//email:attachmentFileNames" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_numberOfAttachments" displayName="Number of Attachments" xpath="//email:numberOfAttachments" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_sizeInBytes" displayName="Size in Bytes" xpath="//email:sizeInBytes" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_labels" displayName="Label" xpath="//email:labels" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+    <term indexName="email_rawHeader" displayName="Raw Header" xpath="//email:rawHeader" xipTypes="DELIVERABLE_UNIT" sortable="true"/>
+</index>

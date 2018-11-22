@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ (c) Copyright 2012 Preservica
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Preservica
+  ~ 22 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@preservica.com
+  ~ web:    www.preservica.com
+  -->
+<index xmlns="http://www.preservica.com/customindex/v1" xmlns:sb="http://www.springframework.org/schema/beans">
+    <schemaName>ArchivesSpace</schemaName>
+    <schemaUri>http://www.preservica.com/archives_space/v1</schemaUri>
+    <shortName>aspace</shortName>
+	
+    <term indexName="ArchivesSpaceUri" displayName="Uri" xpath="//aspace:uri" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceRefId" displayName="Ref ID" xpath="//aspace:ref_id" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceComponentId" displayName="Component ID" xpath="//aspace:component_id" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceLevel" displayName="Level" xpath="//aspace:level" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceJsonModelType" displayName="Record Type" xpath="//aspace:jsonmodel_type" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+
+    <term indexName="ArchivesSpaceTitle" displayName="Title" xpath="//aspace:title" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceDisplayString" displayName="Display String" xpath="//aspace:display_string" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceCreatedBy" displayName="Created By" xpath="//aspace:created_by" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceLastModifiedBy" displayName="Last Modified By" xpath="//aspace:last_modified_by" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="ArchivesSpaceLanguage" displayName="Language" xpath="//aspace:language" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+</index>

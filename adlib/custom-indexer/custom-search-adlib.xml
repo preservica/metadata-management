@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ (c) Copyright 2012 Tessella
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Tessella
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@tessella.com
+  ~ web:    www.tessella.com
+  -->
+<index xmlns="http://www.preservica.com/customindex/v1" xmlns:sb="http://www.springframework.org/schema/beans">
+    <schemaName>Adlib</schemaName>
+    <schemaUri>http://www.tessella.com/catalogue/adlib/v1</schemaUri>
+    <shortName>adlib</shortName>
+    <term indexName="AdlibObjectNumber" displayName="Reference Code" xpath="//adlib:object_number" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="AdlibPriRef" displayName="Priref" xpath="//adlib:priref" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="AdlibDescriptionLevel" displayName="Level" xpath="//adlib:description_level" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="AdlibTitle" displayName="Title" xpath="//adlib:title" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="AdlibCreator" displayName="Creator" xpath="//adlib:creator" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="AdlibAccessionNumber" displayName="Accession Number" xpath="//adlib:related_accession_number" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+</index>

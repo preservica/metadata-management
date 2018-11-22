@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bulkEditList xmlns="http://www.preservica.com/bulkEditList">
+
+	<!-- Mandatory -->
+	<targetSchemaUri>http://www.preservica.com/gdpr/v1</targetSchemaUri>
+
+	<!--
+		Examples:
+		
+		These first two are equivalent due to defaults:
+		
+			<bulkEditTerm indexName="subject"/>
+			
+			<bulkEditTerm indexName="subject" editType="Update,Replace" editable="true"/>
+		
+		To black list a term:
+		
+			<bulkEditTerm indexName="subject" editable="false"/>
+		
+		Note: For a term to be editable, it MUST appear in the white list AND NOT in the black list.
+				The following terms will NOT be editable in ANY editType due to this fact.
+		
+			<bulkEditTerm indexName="subject" editable="false"/>
+			
+			<bulkEditTerm indexName="subject" editType="Update,Replace" editable="false"/>
+			
+			<bulkEditTerm indexName="subject" editType="Update" editable="false"/>
+		
+		To white list Update only:
+
+			<bulkEditTerm indexName="subject" editType="Update" editable="true"/>
+			<bulkEditTerm indexName="subject" editType="Replace" editable="false"/>
+
+			** OR BY USING DEFAULTS **
+
+			<bulkEditTerm indexName="subject"/>
+			<bulkEditTerm indexName="subject" editType="Replace" editable="false"/>
+				
+	-->
+	
+	<!-- List of terms goes here -->
+	<bulkEditTerm indexName="personaldata"/>
+	<bulkEditTerm indexName="recordobjected"/>
+	<bulkEditTerm indexName="recipientdisclosurecategory"/>
+	<bulkEditTerm indexName="recordobjecteddate"/>
+	<bulkEditTerm indexName="timelimitforerasure"/>
+	
+</bulkEditList>

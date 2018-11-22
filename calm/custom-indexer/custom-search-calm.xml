@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ (c) Copyright 2012 Tessella
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Tessella
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@tessella.com
+  ~ web:    www.tessella.com
+  -->
+<index xmlns="http://www.preservica.com/customindex/v1" xmlns:sb="http://www.springframework.org/schema/beans">
+    <schemaName>Calm</schemaName>
+    <schemaUri>http://www.tessella.com/catalogue/calm/v1</schemaUri>
+    <shortName>calm</shortName>
+    <term indexName="CalmRefNo" displayName="RefNo" xpath="//calm:RefNo" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmRecordID" displayName="RecordID" xpath="//calm:RecordID" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmAltRefNo" displayName="AltRefNo" xpath="//calm:AltRefNo" indexType="STRING_EXACT" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmDescription" displayName="Description" xpath="//calm:Description" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmTitle" displayName="Title" xpath="//calm:Title" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmLocation" displayName="Location" xpath="//calm:Location" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmLevel" displayName="Level" xpath="//calm:Level" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmExtent" displayName="Extent" xpath="//calm:Extent" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmCreator" displayName="Creator" xpath="//calm:Creator" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmClosedUntil" displayName="ClosedUntil" xpath="//calm:ClosedUntil" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+    <term indexName="CalmRepository" displayName="Repository" xpath="//calm:Repository" xipTypes="COLLECTION,DELIVERABLE_UNIT"/>
+</index>

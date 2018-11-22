@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bulkEditList xmlns="http://www.preservica.com/bulkEditList">
+
+	<!-- Mandatory -->
+	<targetSchemaUri>http://www.tessella.com/XIP/v4</targetSchemaUri>
+	
+	<!--
+		
+		IMPORTANT: XIP rules for bulk editing exist within Preservica and can only be changed as described below.
+		
+		XIP terms further to those below cannot be white listed.
+		However, the terms below can be black listed for any/all editType's.
+		
+		For integrity:
+			Title, ScopeAndContent, CoverageFrom, CoverageTo cannot be Cleared for Deliverable Units
+			Title cannot be cleared for Collections
+		
+		e.g. to black list all editType's
+		
+			<bulkEditTerm indexName="recordopeningdate" editable="false"/>
+			
+		e.g. to black list only the Update editType
+		
+			<bulkEditTerm indexName="recordopeningdate" editType="Replace,Clear" editable="true"/>
+			<bulkEditTerm indexName="recordopeningdate" editType="Update" editable="false"/>
+			
+			** OR BY USING DEFAULTS **
+			
+			<bulkEditTerm indexName="recordopeningdate"/>
+			<bulkEditTerm indexName="recordopeningdate" editType="Update" editable="false"/>
+
+	-->
+	
+	<!-- List of terms goes here -->
+	<bulkEditTerm indexName="title"/>
+	<bulkEditTerm indexName="coveragefrom"/>
+	<bulkEditTerm indexName="coverageto"/>
+	<bulkEditTerm indexName="scopeandcontent"/>
+	<bulkEditTerm indexName="recordopeningdate"/>
+	<!-- Preservica recommends black listing 'cataloguereference' if you intend to use catalogues -->
+	<bulkEditTerm indexName="cataloguereference"/>
+	
+</bulkEditList>

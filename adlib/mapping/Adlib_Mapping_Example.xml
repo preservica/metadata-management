@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ (c) Copyright 2015 Tessella.com
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Tessella Support Services
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@tessella.com
+  ~ web:    www.tessella.com
+  -->
+
+<cat:catalogueMapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:cat="http://www.tessella.com/CatalogueMapping/v1" xsi:schemaLocation="http://www.tessella.com/CatalogueMapping/v1 catalogueMapping.xsd">
+
+    <cat:CatalogueType>Adlib</cat:CatalogueType>
+    <cat:DefaultLanguage>0</cat:DefaultLanguage>
+
+    <cat:IdMatchStrategy>
+        <cat:IdExtractStrategy strategyName="XipField" returnIdType="HUMAN" sourceXipType="TOP_LEVEL_DU" />
+        <cat:DescendantIdStrategy strategyName="Hierarchy" returnIdType="HUMAN">
+            <cat:StrategyArgument key="separator" value="-" />
+            <cat:StrategyArgument key="top_level_uses_parent_id" value="false" />
+        </cat:DescendantIdStrategy>
+    </cat:IdMatchStrategy>
+
+    <cat:SchemaUri>http://www.tessella.com/catalogue/adlib/v1</cat:SchemaUri>
+    <cat:RootElement>catalogue</cat:RootElement>
+    <cat:PublicUrl>http://localhost/archive/sdb:</cat:PublicUrl>
+
+    <cat:Levels>
+        <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+        <cat:Level>COLLECTION</cat:Level>
+        <cat:Level>SERIES</cat:Level>
+        <cat:LevelContinuationPrefix>SUB-</cat:LevelContinuationPrefix>
+        <cat:RecordType>Component</cat:RecordType>
+    </cat:Levels>
+
+    <cat:Levels>
+        <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+        <cat:Level>FILE</cat:Level>
+        <cat:Level>ITEM</cat:Level>
+        <cat:RecordType>Component</cat:RecordType>
+    </cat:Levels>
+
+    <cat:FieldMapping>
+
+        <cat:FieldsForSdbLookup>
+            <cat:FixedIdField>priref</cat:FixedIdField>
+            <cat:TitleField>title</cat:TitleField>
+            <cat:ModificationDateField>modification</cat:ModificationDateField>
+            <cat:HumanReadableIdField>object_number</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss</cat:ModificationDateFormat>
+            <cat:LevelField>description_level</cat:LevelField>
+            <cat:ParentFixedIdField>part_of_reference.lref</cat:ParentFixedIdField>
+            <cat:ChildrenFixedIdField>parts_reference.lref</cat:ChildrenFixedIdField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldsToEmbed>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ExampleAdlibFields</cat:CatalogueFields>
+        </cat:FieldsToEmbed>
+
+        <cat:FieldsForSdbIdentifiers>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ExampleIdentifierFields</cat:CatalogueFields>
+        </cat:FieldsForSdbIdentifiers>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="title" truncationForSdb="255"/>
+            <cat:XipFieldMappings sdbFieldName="CollectionCode" catalogueFieldName="object_number" truncationForSdb="255"/>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="title" truncationForSdb="255"/>
+            <cat:XipFieldMappings sdbFieldName="ScopeAndContent" catalogueFieldName="content.description" truncationForSdb="4000"/>
+            <cat:XipFieldMappings sdbFieldName="CatalogueReference" catalogueFieldName="object_number" truncationForSdb="255"/>
+            <cat:XipFieldMappings sdbFieldName="CoverageFrom" catalogueFieldName="production.date.start">
+                <cat:MappingStrategy>
+                    <cat:DateMapping type="SingleDate" format="yyyy-MM-dd"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="CoverageTo" catalogueFieldName="production.date.end">
+                <cat:MappingStrategy>
+                    <cat:DateMapping type="SingleDate" format="yyyy-MM-dd"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>File</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="FileSize" catalogueFieldName="digital_extent" truncationForSdb="255"/>
+            <cat:XipFieldMappings sdbFieldName="LastModifiedDate" catalogueFieldName="production.date.end">
+                <cat:MappingStrategy>
+                    <cat:DateMapping type="SingleDate" format="yyyy-MM-dd"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <cat:FieldForSdbType>alternative_number.type</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>alternative_number</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>digital_reference</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>finding_aids</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <cat:NewCatalogueDefaultFields fieldName="process" fieldValue="Ingest to Preservica"/>
+        <cat:NewCatalogueDefaultFields fieldName="related_object.notes" fieldValue="Digital objects related to this record are available in the Preservica digital preservation system."/>
+
+        <cat:CatalogueFields catalogueFieldsID="ExampleAdlibFields" >
+            <cat:FieldName>accession_title</cat:FieldName>
+            <cat:FieldName>alternative_number</cat:FieldName>
+            <cat:FieldName>alternative_number.type</cat:FieldName>
+            <cat:FieldName>content.description</cat:FieldName>
+            <cat:FieldName>creator</cat:FieldName>
+            <cat:FieldName>description_level</cat:FieldName>
+            <cat:FieldName>digital_reference</cat:FieldName>
+            <cat:FieldName>institution.code</cat:FieldName>
+            <cat:FieldName>institution.name</cat:FieldName>
+            <cat:FieldName>institution.name.lref</cat:FieldName>
+            <cat:FieldName>modification</cat:FieldName>
+            <cat:FieldName>object_number</cat:FieldName>
+            <cat:FieldName>part_of.title</cat:FieldName>
+            <cat:FieldName>part_of_reference</cat:FieldName>
+            <cat:FieldName>part_of_reference.lref</cat:FieldName>
+            <cat:FieldName>parts.title</cat:FieldName>
+            <cat:FieldName>parts_reference</cat:FieldName>
+            <cat:FieldName>parts_reference.lref</cat:FieldName>
+            <cat:FieldName>priref</cat:FieldName>
+            <cat:FieldName>production.date.end</cat:FieldName>
+            <cat:FieldName>production.date.start</cat:FieldName>
+            <cat:FieldName>related_accession_number</cat:FieldName>
+            <cat:FieldName>related_object.notes</cat:FieldName>
+            <cat:FieldName>title</cat:FieldName>
+        </cat:CatalogueFields>
+
+        <cat:CatalogueFields catalogueFieldsID="ExampleIdentifierFields">
+            <cat:FieldName>priref</cat:FieldName>
+            <cat:FieldName>object_number</cat:FieldName>
+        </cat:CatalogueFields>
+
+    </cat:FieldMapping>
+
+</cat:catalogueMapping>
+

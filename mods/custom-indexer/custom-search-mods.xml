@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index xmlns="http://www.preservica.com/customindex/v1">
+        <schemaName>mods</schemaName>
+        <schemaUri>http://www.loc.gov/mods/v3</schemaUri>
+        <shortName>mods</shortName>
+		<!-- This templates includes a limited set of fields to index. -->
+		<!-- Modify before use. -->
+		
+		<term indexName="recordIdentifier" displayName="Record Identifier" xpath="//mods:mods/mods:recordInfo/mods:recordIdentifier" sortable="true"/>
+		<term indexName="recordOrigin" displayName="Record Origin" xpath="//mods:mods/mods:recordInfo/mods:recordOrigin" sortable="true"/>
+		<term indexName="descriptionStandard" displayName="Record Description" xpath="//mods:mods/mods:recordInfo/mods:descriptionStandard" sortable="true"/>
+
+		<term indexName="title" displayName="Main Title" xpath="//mods:mods/mods:titleInfo/mods:title" sortable="true"/>
+		<term indexName="typeOfResource" displayName="Resource type" xpath="//mods:mods/mods:typeOfResource"  sortable="false"/>
+		<term indexName="language" displayName="Language" xpath="//mods:mods/mods:language/mods:languageTerm"  sortable="true"/>
+		<term indexName="extent" displayName="Extent" xpath="//mods:mods/mods:physicalDescription/mods:extent"  sortable="true"/>
+		
+		<term indexName="subject" displayName="Subject" xpath="//mods:mods/mods:subject/mods:topic"  sortable="true"/>
+		<term indexName="location" displayName="Physical Location" xpath="//mods:mods/mods:location/mods:physicalLocation"  sortable="true"/>
+
+		<term indexName="accessCondition" displayName="Access Condition" xpath="//mods:mods/mods:accessCondition[@type='access']"  sortable="true"/>
+
+        <namespaceMapping key="mods" value="http://www.loc.gov/mods/v3"/>
+</index> 

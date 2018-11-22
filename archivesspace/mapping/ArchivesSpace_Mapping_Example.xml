@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ (c) Copyright 2015 Preservica
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ Catalogues
+  ~
+  ~ Developed By:
+  ~ Preservica
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@preservica.com
+  ~ web:    www.preservica.com
+  -->
+
+<cat:catalogueMapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:cat="http://www.tessella.com/CatalogueMapping/v1" xsi:schemaLocation="http://www.tessella.com/CatalogueMapping/v1 catalogueMapping.xsd">
+
+    <cat:CatalogueType>ArchivesSpace</cat:CatalogueType>
+
+    <cat:IdMatchStrategy>
+        <cat:IdExtractStrategy strategyName="ArchivesSpaceUrl" returnIdType="FIXED" sourceXipType="TOP_LEVEL_DU" />
+        <cat:DescendantIdStrategy strategyName="Hierarchy" returnIdType="HUMAN">
+            <cat:StrategyArgument key="separator" value="-" />
+            <cat:StrategyArgument key="top_level_uses_parent_id" value="false" />
+        </cat:DescendantIdStrategy>
+    </cat:IdMatchStrategy>
+
+    <cat:SchemaUri>http://www.preservica.com/archives_space/v1</cat:SchemaUri>
+    <cat:RootElement>catalogue</cat:RootElement>
+    <cat:PublicUrl>http://localhost/archive/sdb%3A</cat:PublicUrl>
+    <cat:CatalogueLinkUrlPrefix>http://archivesspace.preservica.co.uk:8080/</cat:CatalogueLinkUrlPrefix>
+    <cat:RecordTypeField>jsonmodel_type</cat:RecordTypeField>
+
+    <cat:Levels>
+        <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+        <cat:Level>collection</cat:Level>
+        <cat:Level>fonds</cat:Level>
+        <cat:Level>subfonds</cat:Level>
+        <cat:Level>series</cat:Level>
+        <cat:Level>subseries</cat:Level>
+        <cat:Level>recordgrp</cat:Level>
+        <cat:Level>subgrp</cat:Level>
+        <cat:Level>file</cat:Level>
+        <cat:LevelContinuationPrefix/>
+        <cat:RecordType>repository</cat:RecordType>
+        <cat:RecordType>resource</cat:RecordType>
+        <cat:RecordType>archival_object</cat:RecordType>
+    </cat:Levels>
+
+    <cat:Levels>
+        <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+        <cat:Level>work</cat:Level>
+        <cat:RecordType>digital_object</cat:RecordType>
+        <cat:RecordType>digital_object_component</cat:RecordType>
+    </cat:Levels>
+
+    <cat:FieldMapping>
+        <cat:FieldsToEmbed>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ArchivesSpaceCommonFields</cat:CatalogueFields>
+        </cat:FieldsToEmbed>
+
+        <cat:FieldsForSdbIdentifiers>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ArchivesSpaceIdentifierFields</cat:CatalogueFields>
+        </cat:FieldsForSdbIdentifiers>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="SecurityTag" catalogueFieldName="publish" catalogueToSdb="false">
+                <cat:MappingStrategy>
+                    <cat:Lookup sdbFieldValue="open" catalogueBooleanValue="true" />
+                    <cat:Lookup sdbFieldValue="*" catalogueBooleanValue="false" />
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="title" truncationForSdb="240"/>
+            <cat:XipFieldMappings sdbFieldName="CoverageFrom" catalogueFieldName="dates[]$jsonmodel_type=date$date_type=inclusive$label=creation/begin" >
+                <cat:MappingStrategy>
+                    <cat:DateMapping type="SingleDate" format="yyyy-MM-dd"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="CoverageTo" catalogueFieldName="dates[]$jsonmodel_type=date$date_type=inclusive$label=creation/end" >
+                <cat:MappingStrategy>
+                    <cat:DateMapping type="SingleDate" format="yyyy-MM-dd"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+		
+        <cat:NewCatalogueDefaultFields fieldName="lock_version" fieldValue="0" />
+        <cat:NewCatalogueDefaultFields fieldName="publish" booleanFieldValue="true" />
+
+        <cat:CatalogueFields catalogueFieldsID="ArchivesSpaceCommonFields">
+            <!--
+            The below list gives field names that are on various different record types.
+            If the field does not exist for that record type it will be ignored.
+            Although, in theory a <cat:CatalogueFields> element could be added for all ArchivesSpace
+            record types, it is clearer to list them all in one place.
+            -->
+
+            <!-- Repository and common fields -->
+            <cat:FieldName>country</cat:FieldName>
+            <cat:FieldName>create_time</cat:FieldName>
+            <cat:FieldName>lock_version</cat:FieldName>
+            <cat:FieldName>repo_code</cat:FieldName>
+            <cat:FieldName>repo_code</cat:FieldName>
+            <cat:FieldName>parent_institution_name</cat:FieldName>
+            <cat:FieldName>last_modified_by</cat:FieldName>
+            <cat:FieldName>created_by</cat:FieldName>
+            <cat:FieldName>jsonmodel_type</cat:FieldName>
+            <cat:FieldName>uri</cat:FieldName>
+            <cat:FieldName>agent_representation</cat:FieldName>
+            <cat:FieldName>name</cat:FieldName>
+            <cat:FieldName>user_mtime</cat:FieldName>
+            <cat:FieldName>system_mtime</cat:FieldName>
+            <cat:FieldName>org_code</cat:FieldName>
+
+            <!-- Resource and common fields -->
+            <cat:FieldName>notes</cat:FieldName>
+            <cat:FieldName>publish</cat:FieldName>
+            <cat:FieldName>instances</cat:FieldName>
+            <cat:FieldName>deaccessions</cat:FieldName>
+            <cat:FieldName>language</cat:FieldName>
+            <cat:FieldName>repository_processing_note</cat:FieldName>
+            <cat:FieldName>title</cat:FieldName>
+            <cat:FieldName>extents</cat:FieldName>
+            <cat:FieldName>repository</cat:FieldName>
+            <cat:FieldName>revision_statements</cat:FieldName>
+            <cat:FieldName>linked_agents</cat:FieldName>
+            <cat:FieldName>suppressed</cat:FieldName>
+            <cat:FieldName>rights_statements</cat:FieldName>
+            <cat:FieldName>create_time</cat:FieldName>
+            <cat:FieldName>extents</cat:FieldName>
+            <cat:FieldName>level</cat:FieldName>
+            <cat:FieldName>subjects</cat:FieldName>
+            <cat:FieldName>resource_type</cat:FieldName>
+            <cat:FieldName>tree</cat:FieldName>
+            <cat:FieldName>restrictions</cat:FieldName>
+            <cat:FieldName>dates</cat:FieldName>
+            <cat:FieldName>last_modified_by</cat:FieldName>
+            <cat:FieldName>created_by</cat:FieldName>
+            <cat:FieldName>external_ids</cat:FieldName>
+            <cat:FieldName>related_accessions</cat:FieldName>
+            <cat:FieldName>classifications</cat:FieldName>
+            <cat:FieldName>external_documents</cat:FieldName>
+            <cat:FieldName>publish</cat:FieldName>
+            <cat:FieldName>user_mtime</cat:FieldName>
+            <cat:FieldName>linked_events</cat:FieldName>
+            <cat:FieldName>system_mtime</cat:FieldName>
+            <cat:FieldName>id_0</cat:FieldName>
+            <cat:FieldName>id_1</cat:FieldName>
+            <cat:FieldName>id_2</cat:FieldName>
+            <cat:FieldName>id_3</cat:FieldName>
+
+            <!-- Archival object and common fields -->
+            <cat:FieldName>ref_id</cat:FieldName>
+            <cat:FieldName>instances</cat:FieldName>
+            <cat:FieldName>component_id</cat:FieldName>
+            <cat:FieldName>resource</cat:FieldName>
+            <cat:FieldName>restrictions_apply</cat:FieldName>
+            <cat:FieldName>has_unpublished_ancestor</cat:FieldName>
+            <cat:FieldName>display_string</cat:FieldName>
+            <cat:FieldName>position</cat:FieldName>
+
+            <!-- Digital object and common fields -->
+            <cat:FieldName>linked_instances</cat:FieldName>
+            <cat:FieldName>file_versions</cat:FieldName>
+            <cat:FieldName>digital_object_id</cat:FieldName>
+
+            <!-- Digital object component and common fields -->
+            <cat:FieldName>digital_object</cat:FieldName>
+
+        </cat:CatalogueFields>
+
+        <cat:CatalogueFields catalogueFieldsID="ArchivesSpaceIdentifierFields">
+            <cat:FieldName>uri</cat:FieldName>
+        </cat:CatalogueFields>
+
+    </cat:FieldMapping>
+
+    <cat:FieldMapping recordType="repository">
+        <cat:FieldsForSdbLookup>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:FixedIdField>uri</cat:FixedIdField>
+            <cat:TitleField>name</cat:TitleField>
+            <cat:ModificationDateField>system_mtime</cat:ModificationDateField>
+            <cat:HumanReadableIdField>repo_code</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</cat:ModificationDateFormat>
+            <cat:TopLevelFixedIdField>uri</cat:TopLevelFixedIdField>
+            <cat:VersionField>lock_version</cat:VersionField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="CollectionCode" catalogueFieldName="repo_code" truncationForSdb="240"/>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="name" truncationForSdb="240"/>
+        </cat:FieldsForXip>
+
+        <cat:NewCatalogueDefaultFields fieldName="jsonmodel_type" fieldValue="repository" />
+
+    </cat:FieldMapping>
+
+    <cat:FieldMapping recordType="resource">
+        <cat:FieldsForSdbLookup>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:FixedIdField>uri</cat:FixedIdField>
+            <cat:TitleField>title</cat:TitleField>
+            <cat:ModificationDateField>system_mtime</cat:ModificationDateField>
+            <cat:HumanReadableIdField>resourceHumanId</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</cat:ModificationDateFormat>
+            <cat:LevelField>level</cat:LevelField>
+            <cat:TopLevelFixedIdField>repository/ref</cat:TopLevelFixedIdField>
+            <cat:ContainerFixedIdField>repository/ref</cat:ContainerFixedIdField>
+            <cat:VersionField>lock_version</cat:VersionField>
+            <cat:DeletionNoteField>notes[]$jsonmodel_type=note_multipart$type=odd/subnotes[]$jsonmodel_type=note_text/content</cat:DeletionNoteField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldCombinations>
+            <cat:CombinationType>Combine</cat:CombinationType>
+            <cat:CombinationName>resourceHumanId</cat:CombinationName>
+            <cat:FieldValueSeparator>,</cat:FieldValueSeparator>
+            <cat:FieldName>id_0</cat:FieldName>
+            <cat:FieldName>id_1</cat:FieldName>
+            <cat:FieldName>id_2</cat:FieldName>
+            <cat:FieldName>id_3</cat:FieldName>
+        </cat:FieldCombinations>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="CollectionCode" catalogueFieldName="resourceHumanId" truncationForSdb="240"/>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="title" truncationForSdb="240"/>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <cat:FieldForSdbType>external_documents[]$jsonmodel_type=external_document/title</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>external_documents[]$jsonmodel_type=external_document/location</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>notes[]$jsonmodel_type=note_multipart$type=otherfindaid$label=Preservica Internal URL/subnotes[]$jsonmodel_type=note_text/content</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>notes[]$jsonmodel_type=note_multipart$type=otherfindaid$label=Preservica Public URL/subnotes[]$jsonmodel_type=note_text/content</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <cat:NewCatalogueDefaultFields fieldName="jsonmodel_type" fieldValue="resource" />
+        <cat:NewCatalogueDefaultFields fieldName="language" fieldValue="eng" />
+        <cat:NewCatalogueDefaultFields fieldName="repository_processing_note" fieldValue="Created by Preservica" />
+        <cat:NewCatalogueDefaultFields fieldName="extents[]$lock_version=0$jsonmodel_type=extent$extent_type=gigabytes$portion=part$container_summary=Preservica/number" fieldValue="0" />
+        <cat:NewCatalogueDefaultFields fieldName="dates[]$lock_version=0$jsonmodel_type=date$calendar=gregorian$label=digitized$date_type=single$expression=Preservica/begin" fieldValue="${NOW:yyyy-MM-dd}" />
+
+    </cat:FieldMapping>
+
+    <cat:FieldMapping recordType="archival_object">
+        <cat:FieldsForSdbLookup>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:FixedIdField>uri</cat:FixedIdField>
+            <cat:TitleField>title</cat:TitleField>
+            <cat:ModificationDateField>system_mtime</cat:ModificationDateField>
+            <cat:HumanReadableIdField>ref_id</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</cat:ModificationDateFormat>
+            <cat:LevelField>level</cat:LevelField>
+            <cat:ParentFixedIdField>parent/ref</cat:ParentFixedIdField>
+            <cat:TopLevelFixedIdField>repository/ref</cat:TopLevelFixedIdField>
+            <cat:ContainerFixedIdField>resource/ref</cat:ContainerFixedIdField>
+            <cat:ChildrenFixedIdField>instances[]$instance_type=digital_object/digital_object/ref</cat:ChildrenFixedIdField>
+            <cat:AllowedChildren>digital_object</cat:AllowedChildren>
+            <cat:VersionField>lock_version</cat:VersionField>
+            <cat:DeletionNoteField>notes[]$jsonmodel_type=note_multipart$type=odd/subnotes[]$jsonmodel_type=note_text/content</cat:DeletionNoteField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldCombinations>
+            <cat:CombinationType>First</cat:CombinationType>
+            <cat:CombinationName>titleAndDate</cat:CombinationName>
+            <cat:FieldValueSeparator>, </cat:FieldValueSeparator>
+            <cat:FieldName>title</cat:FieldName>
+            <cat:FieldName>dates[]/expression</cat:FieldName>
+        </cat:FieldCombinations>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="CollectionCode" catalogueFieldName="ref_id" truncationForSdb="240" sdbToCatalogue="false"/>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="title" truncationForSdb="240" catalogueToSdb="false"/>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="titleAndDate" truncationForSdb="240" sdbToCatalogue="false"/>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <cat:FieldForSdbType>external_documents[]$jsonmodel_type=external_document/title</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>external_documents[]$jsonmodel_type=external_document/location</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>notes[]$jsonmodel_type=note_multipart$type=otherfindaid$label=Preservica Internal URL/subnotes[]$jsonmodel_type=note_text/content</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>notes[]$jsonmodel_type=note_multipart$type=otherfindaid$label=Preservica Public URL/subnotes[]$jsonmodel_type=note_text/content</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <cat:NewCatalogueDefaultFields fieldName="jsonmodel_type" fieldValue="archival_object" />
+
+    </cat:FieldMapping>
+
+    <cat:FieldMapping recordType="digital_object">
+        <cat:FieldsForSdbLookup>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:FixedIdField>uri</cat:FixedIdField>
+            <cat:TitleField>title</cat:TitleField>
+            <cat:ModificationDateField>system_mtime</cat:ModificationDateField>
+            <cat:HumanReadableIdField>digital_object_id</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</cat:ModificationDateFormat>
+            <cat:LevelField>level</cat:LevelField>
+            <cat:TopLevelFixedIdField>repository/ref</cat:TopLevelFixedIdField>
+            <cat:ContainerFixedIdField>linked_instances/ref</cat:ContainerFixedIdField>
+            <cat:SoftLinkUrlField>file_versions[]$jsonmodel_type=file_version$use_statement=Digital Preservation Link/file_uri</cat:SoftLinkUrlField>
+            <cat:VersionField>lock_version</cat:VersionField>
+            <cat:DeletionNoteField>notes[]$jsonmodel_type=note_digital_object$type=note/content[]</cat:DeletionNoteField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="CatalogueReference" catalogueFieldName="digital_object_id" truncationForSdb="240"/>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <cat:FieldForSdbType>external_documents[]$jsonmodel_type=external_document/title</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>external_documents[]$jsonmodel_type=external_document/location</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>file_versions[]$jsonmodel_type=file_version$use_statement=Digital Preservation Staff System/file_uri</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>file_versions[]$jsonmodel_type=file_version$use_statement=Electronic Record Access System/file_uri</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <cat:NewCatalogueDefaultFields fieldName="jsonmodel_type" fieldValue="digital_object" />
+        <cat:NewCatalogueDefaultFields fieldName="level" fieldValue="work" />
+
+        <cat:FieldsForLinkRecord>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ArchivesSpaceDigitalObjectLinkFields</cat:CatalogueFields>
+        </cat:FieldsForLinkRecord>
+
+        <cat:CatalogueFields catalogueFieldsID="ArchivesSpaceDigitalObjectLinkFields" >
+            <cat:FieldName>title</cat:FieldName>
+            <cat:FieldName>publish</cat:FieldName>
+        </cat:CatalogueFields>
+
+    </cat:FieldMapping>
+
+    <cat:FieldMapping recordType="digital_object_component">
+        <cat:FieldsForSdbLookup>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:FixedIdField>uri</cat:FixedIdField>
+            <cat:TitleField>title</cat:TitleField>
+            <cat:ModificationDateField>system_mtime</cat:ModificationDateField>
+            <cat:HumanReadableIdField>component_id</cat:HumanReadableIdField>
+            <cat:ModificationDateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</cat:ModificationDateFormat>
+            <cat:ParentFixedIdField>parent/ref</cat:ParentFixedIdField>
+            <cat:TopLevelFixedIdField>repository/ref</cat:TopLevelFixedIdField>
+            <cat:ContainerFixedIdField>digital_object/ref</cat:ContainerFixedIdField>
+            <cat:VersionField>lock_version</cat:VersionField>
+            <cat:DeletionNoteField>notes[]$jsonmodel_type=note_digital_object$type=note/content[]</cat:DeletionNoteField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:XipFieldMappings sdbFieldName="CatalogueReference" catalogueFieldName="component_id" truncationForSdb="240"/>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <cat:FieldForSdbType>external_documents[]$jsonmodel_type=external_document/title</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>external_documents[]$jsonmodel_type=external_document/location</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>file_versions[]$jsonmodel_type=file_version$use_statement=Digital Preservation Staff System/file_uri</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>file_versions[]$jsonmodel_type=file_version$use_statement=Electronic Record Access System/file_uri</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <cat:NewCatalogueDefaultFields fieldName="jsonmodel_type" fieldValue="digital_object_component" />
+
+        <cat:FieldsForLinkRecord>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:CatalogueFields>ArchivesSpaceDigitalObjectComponentLinkFields</cat:CatalogueFields>
+        </cat:FieldsForLinkRecord>
+
+        <cat:CatalogueFields catalogueFieldsID="ArchivesSpaceDigitalObjectComponentLinkFields" >
+            <cat:FieldName>title</cat:FieldName>
+            <cat:FieldName>publish</cat:FieldName>
+        </cat:CatalogueFields>
+
+    </cat:FieldMapping>
+
+    <cat:DeletionNote><![CDATA[<p>Former child record (${mapped_record}) was deleted from catalogue on [${deletion_date}] as matching Preservica ${preservica_type} ${preservica_ref} was deleted.</p>]]></cat:DeletionNote>
+
+    <cat:CustomParameter name="RawJsonFieldName" value="RawJson" />
+    <cat:CustomParameter name="HtmlWrapSdbUrl" value="Preservica Internal" />
+    <cat:CustomParameter name="HtmlWrapPublicUrl" value="Preservica Access" />
+    <cat:CustomParameter name="HtmlWrapSoftLinkUrl" value="ArchivesSpace Link" />
+</cat:catalogueMapping>

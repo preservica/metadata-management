@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gdpr xmlns="http://www.preservica.com/gdpr/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <personaldata>Needs Investigation</personaldata>
+    <recordobjected>True</recordobjected>
+    <recordobjecteddate>2018-05-30T09:00:00Z</recordobjecteddate>
+    <recipientdisclosurecategory>manager</recipientdisclosurecategory>
+    <timelimitforerasure>2030-01-01T09:00:00Z</timelimitforerasure>
+</gdpr>

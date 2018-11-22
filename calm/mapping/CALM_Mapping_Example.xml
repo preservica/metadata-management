@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ (c) Copyright 2014 Tessella.com
+  ~ All rights reserved.
+  ~
+  ~ Project: 5122/SDB
+  ~ SDB4
+  ~
+  ~ Developed By:
+  ~ Tessella Support Services
+  ~ 26 The Quadrant
+  ~ Abingdon Science Park
+  ~ Abingdon
+  ~ OX14 3YS
+  ~
+  ~ email:  info@tessella.com
+  ~ web:    www.tessella.com
+  -->
+
+<cat:catalogueMapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:cat="http://www.tessella.com/CatalogueMapping/v1"
+                      xsi:schemaLocation="http://www.tessella.com/CatalogueMapping/v1 catalogueMapping.xsd">
+
+    <cat:CatalogueType>Calm</cat:CatalogueType>
+
+    <!-- Describes how references are mapped between Preservica and CALM
+         CALM can have special characters in References, such as forward slashes that we need to convert to and from
+    -->
+    <cat:IdMatchStrategy>
+        <!--
+            strategyName – refers to string bean XipField. This is default for CALM.
+            returnIdType is one of :
+                POSITION    - Determined by position in hierarchy
+                HUMAN       - Unique but can change, usually for finding records
+                FIXED       - Unique and fixed/Never Changes. All catalogue must have one
+            sourceXipType is TOP_LEVEL_DU or COLLECTION
+        -->
+        <!-- Each CALM record has contains a RefNo field which allows the parent to be extracted.
+            Relates to the way the parent is taken from the field identified in the PositionIdField element lower in the document
+                <cat:PositionIdField>RefNo</cat:PositionIdField>
+            Other Catalogues may use different returnIdTypes
+        -->
+        <cat:IdExtractStrategy strategyName="XipField" returnIdType="POSITION" sourceXipType="TOP_LEVEL_DU">
+
+            <!--
+            Can have multiple replacements on the same field
+                Replacement toReplace="D_" replaceWith="D-" replacementType="START"
+                Replacement toReplace="_" replaceWith="/" replacementType="ALL"
+                XIP field :  "D_5_A_12"
+                CALM  RefNo : "D-5/A/12"
+            replacementType :
+                ALL (the default) - replace all toReplace character(s).
+                FIRST - replace only the first toReplace character(s) found.
+                LAST - replace only the last toReplace character(s) found.
+                START - replace the toReplace character(s) only if found at the start of the Preservica XIP field.
+                END - replace the toReplace character(s) only if found at the end of the Preservica XIP field
+            -->
+
+            <cat:Replacement toReplace="_" replaceWith="/" replacementType="ALL"/>
+            <!--Can specify <StrategyArgument> entity to use a different field to map
+                key is with "collection_field" or "deliverable_unit_field" value
+                is an xpath-like expression, which will first search for exact XIP field matches then Generic Metadata elements
+                <IdExtractStrategy strategyName="xipField" returnIdType="HUMAN" sourceXipType="COLLECTION">
+                    <StrategyArgument key="collection_field" value="Title"/>
+                        would use the collection Title field instead of the default CollectionCode as the source for the extracted catalogue ids
+                </IdExtractStrategy>
+                <IdExtractStrategy strategyName="xipField" returnIdType="HUMAN" sourceXipType="TOP_LEVEL_DU">
+                    <StrategyArgument key="deliverable_unit_field" value="Metadata/TRIM/LONGNUMBER"/>
+                        would use the LONGNUMBER element text from within a TRIM fragment of metadata that had been embedded
+                        in the generic metadata of a Preservica deliverable unit (for example by using a .metadata file) during SIP creation
+                </IdExtractStrategy>
+            -->
+        </cat:IdExtractStrategy>
+
+
+            <!-- strategyName build in of increment, extract or hierarchy point to strategy beans
+                    increment seems to be that expected in CALM so children of a record A/B/C will be A/B/C/1, A/B/C/1/1 etc
+            -->
+            <!-- Can be customised using the following <StrategyArgument></StrategyArgument> keys. See documentation for full explanation :
+                    separator  - Incrementally created Calm records will have this prepended to each item
+                                e.g. <cat:DescendantIdStrategy>
+                                        <StrategyArgument key="separator" value="==="/> - The first grand-child of Y493 will have a catalogue id of Y493===1===1
+                                    </cat:DescendantIdStrategy>
+
+                    top_level_uses_parent_id - defaults to true
+                    top_level_uses_increment - defaults to true
+                    start_index - defaults to 1
+                    padding - number of zeros to insert before increment. Defaults to 0
+                    force_padding - defaults to false
+                    increment_type - 3 Values : PER_PARENT
+                                                PER_LEVEL
+                                                PER_XIP
+            -->
+        <cat:DescendantIdStrategy strategyName="Increment" returnIdType="POSITION" />
+
+        <!-- <cat:DescendantIdStrategy strategyName="Hierarchy" returnIdType="POSITION" >
+            <cat:StrategyArgument key="top_level_uses_parent_id" value="true" />
+        </cat:DescendantIdStrategy> -->
+
+        <!-- <cat:DescendantIdStrategy strategyName="Extract" returnIdType="POSITION" /> --><!-- works fine if the record for the top level DU already exists in Calm, but otherwise needs to be in a Collection with the catalogue ref of that as the parent (which doesn't have to exist in calm) -->
+    </cat:IdMatchStrategy>
+
+    <cat:SchemaUri>http://www.tessella.com/catalogue/calm/v1</cat:SchemaUri>
+    <cat:RootElement>catalogue</cat:RootElement>
+    <!-- Used in the code to set the correct URL for cat:FieldForPublicUrl along with the Preservica Type and Entity Reference-->
+    <cat:PublicUrl>http://localhost/archive/sdb:</cat:PublicUrl>
+
+    <cat:LevelCaseSensitive>false</cat:LevelCaseSensitive>
+
+    <!-- The Calm field 'Level' (that specified in cat:LevelField)-->
+    <cat:Levels>
+        <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+        <cat:Level>Fonds</cat:Level>
+        <cat:Level>Sub-fonds</cat:Level>
+        <cat:Level>Sub-sub-fonds</cat:Level>
+        <cat:Level>Series</cat:Level>
+        <cat:Level>Sub-series</cat:Level>
+        <cat:LevelContinuationPrefix>Sub-</cat:LevelContinuationPrefix>
+        <!--defines which type of record will be created in the catalogue for each level-->
+        <cat:RecordType>Collection</cat:RecordType>
+        <cat:RecordType>Component</cat:RecordType>
+    </cat:Levels>
+
+    <cat:Levels>
+        <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+        <cat:Level>File</cat:Level>
+        <cat:Level>Item</cat:Level>
+        <cat:RecordType>Component</cat:RecordType>
+    </cat:Levels>
+
+    <cat:FieldMapping>
+
+        <cat:FieldsForSdbLookup>
+         <!-- Each of these fields specifies the field in CALM that each of these field types can be found  -->
+         <!-- "PreservicaEntityType" type="cat:preservicaEntityType" minOccurs="0" maxOccurs="unbounded"-->
+            <!-- Mandatory -->
+            <cat:FixedIdField>RecordID</cat:FixedIdField>
+            <cat:TitleField>Title</cat:TitleField>
+            <cat:ModificationDateField>Modified</cat:ModificationDateField>
+
+            <!-- Optional -->
+            <cat:PositionIdField>RefNo</cat:PositionIdField>
+            <cat:HumanReadableIdField>RefNo</cat:HumanReadableIdField>
+            <cat:LevelField>Level</cat:LevelField>
+        </cat:FieldsForSdbLookup>
+
+        <cat:FieldsToEmbed>
+        <!--Those you want synced and to be searchable in Preservicas Generic Metadata-->
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>File</cat:PreservicaEntityType>
+
+            <!-- Reference to
+                    <cat:CatalogueFields catalogueFieldsID="CalmFields" >
+                below
+                Different fields can be applied to different Preservica types if wanted -->
+            <cat:CatalogueFields>CalmFields</cat:CatalogueFields>
+        </cat:FieldsToEmbed>
+
+        <cat:FieldsForSdbIdentifiers>
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+            <cat:PreservicaEntityType>File</cat:PreservicaEntityType>
+                <!-- Reference to
+                    <cat:CatalogueFields catalogueFieldsID="IdentifierFields">
+                below
+                Different fields can be applied to different Preservica types if wanted -->
+            <cat:CatalogueFields>IdentifierFields</cat:CatalogueFields>
+        </cat:FieldsForSdbIdentifiers>
+
+        <cat:FieldsForXip>
+        <!-- Fields in Calm that must be mapped to XIP-->
+            <cat:PreservicaEntityType>Collection</cat:PreservicaEntityType>
+            <!-- During the initial linkage of a Preservica entity to a catalogue record -->
+            <!-- truncationForSdb Very long fields may need truncation be mapping to be possible in Preservica DB. Fields cut off, no ellipsis used.-->
+
+            <!-- catalogueToSdb Can specify XIP fields which CALM will NEVER write in Preservica -->
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="Title" catalogueToSdb="false" truncationForSdb="240"/>
+
+            <!-- Can specify XIP fields which Preservica will NEVER write to Calm -->
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="RefNo" sdbToCatalogue="false" truncationForSdb="240">
+                <cat:MappingStrategy>
+                    <cat:NamedMapping type="calmRefNoPrepend"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="Title" sdbToCatalogue="false" truncationForSdb="240">
+                <cat:MappingStrategy>
+                    <cat:NamedMapping type="partAppend"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <!-- Compulsory CollectionCode for Preservica Collection Entity-->
+            <cat:XipFieldMappings sdbFieldName="CollectionCode" catalogueFieldName="RefNo"/>
+            <!-- Mapping of Preservica SecurityTag to CALM AccessStatus based on specific values -->
+            <cat:XipFieldMappings sdbFieldName="SecurityTag" catalogueFieldName="AccessStatus">
+                <cat:MappingStrategy>
+                    <cat:Lookup sdbFieldValue="closed" catalogueFieldValue="Closed" />
+                    <cat:Lookup sdbFieldValue="open" catalogueFieldValue="Open" />
+                    <!-- Add further value mappings here -->
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForXip>
+            <cat:PreservicaEntityType>DeliverableUnit</cat:PreservicaEntityType>
+
+            <!-- All XipFieldMappings have a mapping strategy applied. NoConversionConverter is applied by default when its not specified here  -->
+            <!-- Mapping 'type' annotation refers to bean or class-->
+            <!-- DateMapping 'format' annotation used to create SimpleDateFormat -->
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="Title" catalogueToSdb="false" truncationForSdb="240"/>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="RefNo" sdbToCatalogue="false" truncationForSdb="240">
+                <cat:MappingStrategy>
+                    <!-- calmRefNoPrepend Use just the last part of the CALM ref no in the prefix for appending.
+                            - Catalogue Ref No :    "UK/CO/123"
+                            - SDB field :           "Existing value"
+                            - Resulting SDB field : "123 - Existing value" -->
+                    <cat:NamedMapping type="calmRefNoPrepend"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="Title" catalogueFieldName="Title" sdbToCatalogue="false" truncationForSdb="240">
+                <cat:MappingStrategy>
+                    <!-- partAppend  add existing sdb title to ref no with hyphen
+                            - Catalogue Title :     "XX/YY/ZZ"
+                            - SDB field :           "Another title"
+                            - Resulting SDB field : "XX/YY/ZZ - Another title" -->
+                    <cat:NamedMapping type="partAppend"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <!-- Compulsory CatalogueReference for Preservica DeliverableUnit Entity-->
+            <cat:XipFieldMappings sdbFieldName="CatalogueReference" catalogueFieldName="RefNo"/>
+            <cat:XipFieldMappings sdbFieldName="ScopeAndContent" catalogueFieldName="Description" truncationForSdb="3900"/>
+
+            <!-- If you want to map CoverageFrom, only used CalmCoverageFrom bean-->
+            <cat:XipFieldMappings sdbFieldName="CoverageFrom" catalogueFieldName="Date">
+                <cat:MappingStrategy>
+                    <!-- If you want to map CoverageFrom, only use the CalmCoverageFrom bean
+                         DateMapping 'format' annotation used to create SimpleDateFormat
+                         Default format is 'dd/MM/yyyy' if not specified
+                            - Calm field :                      "-01 May 2009"
+                            - Preservica Coverage from Date:   "2003-11-02T16:11:32.573+01:00"
+                            - Result  -                         "02 Nov 2003-01 May 2009"
+
+                          More CALM date formats are support by CalmDateParser which the CalmCoverageFrom and To both use to convert from CALM to Preservica
+                                Circa :
+                                    c1960s
+                                    c1960s
+                                    c.1960s
+                                    circ.1960s
+                                    Circa1960s
+                                    About1960s
+                                    c1976
+
+                                    Coverage From Result 1/1/1950
+                                    Coverage To Result 31/12/1979
+
+                                Decade :
+                                    1960s
+
+                                    Coverage From Result 1/1/1960
+                                    Coverage To Result 31/12/1969
+
+                                 Epoch : (1/1/1970)
+                                    n.d.
+                                    nd
+                                    undated
+
+
+                                 Unsupported date formats :
+                                    "during 70s"
+                                    "Aug1914-Nov1918"
+                                    "circaseventies"
+                                    "nineties"
+                                    "early12thCentury"
+                                    "16thCentury-1704"
+                                    "13/01/1945-23/08/1978"
+
+                            -->
+
+                    <cat:DateMapping type="CalmCoverageFrom" format="dd MMM yyyy"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="CoverageTo" catalogueFieldName="Date">
+                <cat:MappingStrategy>
+                    <!-- If you want to map CoverageTo, only use the CalmCoverageTo bean
+                         DateMapping 'format' annotation used to create SimpleDateFormat
+                         Default format is 'dd/MM/yyyy' if not specified
+                            - Calm field :      "01 May 2009-"
+                            - Preservica Coverage to Date:   "2013-10-02T14:27:03.851+01:00"
+                            - Result  -         "01 May 2009-02 Oct 2013"
+                    -->
+                    <cat:DateMapping type="CalmCoverageTo" format="dd MMM yyyy"/>
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <cat:XipFieldMappings sdbFieldName="DigitalSurrogate" catalogueFieldName="Copies">
+                <cat:MappingStrategy>
+                    <!-- Can map between four types in Preservica and Calm
+                            String, Boolean, Int and Double
+                            Specify one of;
+                                sdbFieldValue, sdbBooleanValue, sdbIntValue, sdbDoubleValue
+                            and one of;
+                                catalogueFieldValue, catalogueBooleanValue, catalogueIntValue, catalogueDoubleValue
+                            Can also specify a default for other values suing "*"
+                                <Lookup sdbFieldValue="open" catalogueFieldValue="Unrestricted" />
+                                <Lookup sdbFieldValue="closed" catalogueFieldValue="Restricted" />
+                                <Lookup sdbFieldValue="*" catalogueFieldValue="Prohibited" />
+                    -->
+                    <cat:Lookup sdbBooleanValue="true" catalogueFieldValue="Digital surrogate" />
+                    <cat:Lookup sdbBooleanValue="false" catalogueFieldValue="" />
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+            <!-- Mapping of Preservica SecurityTag to CALM AccessStatus based on specific values -->
+            <cat:XipFieldMappings sdbFieldName="SecurityTag" catalogueFieldName="AccessStatus">
+                <cat:MappingStrategy>
+                    <cat:Lookup sdbFieldValue="closed" catalogueFieldValue="Closed" />
+                    <cat:Lookup sdbFieldValue="open" catalogueFieldValue="Open" />
+                    <!-- Add further value mappings here -->
+                </cat:MappingStrategy>
+            </cat:XipFieldMappings>
+        </cat:FieldsForXip>
+
+        <cat:FieldsForSdbMetadata>
+            <!--Needed to filter CALM entities that have been synced
+                Also for synchronisation to be visible to those using calm
+                Entity Type and Entity Ref MUST be stored
+                Can additionally store Explorer (FieldForSdbUrl) and UA URL (FieldForPublicUrl)
+                Here the fields being stored to in CALM are UserText5 etc. unlike above
+            -->
+            <cat:FieldForSdbType>UserText5</cat:FieldForSdbType>
+            <cat:FieldForSdbRef>UserText4</cat:FieldForSdbRef>
+            <cat:FieldForSdbUrl>UserText6</cat:FieldForSdbUrl>
+            <cat:FieldForPublicUrl>UserText7</cat:FieldForPublicUrl>
+        </cat:FieldsForSdbMetadata>
+
+        <!-- Default values for records that are created not synced -->
+        <cat:NewCatalogueDefaultFields fieldName="Repository" fieldValue="Preservica History" />
+        <cat:NewCatalogueDefaultFields fieldName="CatalogueStatus" fieldValue="Catalogued" />
+        <cat:NewCatalogueDefaultFields fieldName="Location" fieldValue="Digital repository" />
+
+        <!-- this doesn't work correctly due to PRSVICA-1892 collections will have fields from both and DUs will have all fields-->
+        <cat:CatalogueFields catalogueFieldsID="CalmFields" >
+            <cat:FieldName>RefNo</cat:FieldName>
+            <cat:FieldName>Repository</cat:FieldName>
+            <cat:FieldName>Level</cat:FieldName>
+            <cat:FieldName>Title</cat:FieldName>
+            <cat:FieldName>Date</cat:FieldName>
+            <cat:FieldName>Extent</cat:FieldName>
+            <cat:FieldName>AccNo</cat:FieldName>
+            <cat:FieldName>Description</cat:FieldName>
+            <cat:FieldName>AccessConditions</cat:FieldName>
+            <cat:FieldName>AccessStatus</cat:FieldName>
+            <cat:FieldName>CatalogueStatus</cat:FieldName>
+            <cat:FieldName>Location</cat:FieldName>
+            <cat:FieldName>Condition</cat:FieldName>
+            <cat:FieldName>Copyright</cat:FieldName>
+            <cat:FieldName>Language</cat:FieldName>
+            <cat:FieldName>PhysicalDescription</cat:FieldName>
+            <cat:FieldName>Copies</cat:FieldName>
+            <cat:FieldName>PreviousNumbers</cat:FieldName>
+            <cat:FieldName>Created</cat:FieldName>
+            <cat:FieldName>Creator</cat:FieldName>
+            <cat:FieldName>RepositoryCode</cat:FieldName>
+
+            <!-- these must be here so that link works correctly see PRSVICA-1895 -->
+            <cat:FieldName>UserText4</cat:FieldName>
+            <cat:FieldName>UserText5</cat:FieldName>
+            <cat:FieldName>UserText6</cat:FieldName>
+            <cat:FieldName>UserText7</cat:FieldName>
+
+            <!-- Required elements not in viewer -->
+            <cat:FieldName>RecordID</cat:FieldName>
+            <cat:FieldName>Modified</cat:FieldName>
+        </cat:CatalogueFields>
+
+        <cat:CatalogueFields catalogueFieldsID="IdentifierFields">
+            <cat:FieldName>RecordID</cat:FieldName>
+            <cat:FieldName>RefNo</cat:FieldName>
+        </cat:CatalogueFields>
+
+    </cat:FieldMapping>
+
+</cat:catalogueMapping>

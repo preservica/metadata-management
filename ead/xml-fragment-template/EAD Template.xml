@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ead:ead xmlns:ead="urn:isbn:1-931666-22-9" xmlns="urn:isbn:1-931666-22-9"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd">
+
+ <eadheader>
+   <eadid>EAD Identifier</eadid>
+  <filedesc>
+   <titlestmt>
+    <titleproper>Title</titleproper>
+   </titlestmt>
+  </filedesc>
+  <profiledesc>
+   <creation>
+    <date></date>
+   </creation>
+   <descrules>Rules/conditions (protocols used for description)</descrules>
+  </profiledesc>
+ </eadheader>
+
+ <archdesc level="series">
+  <did>
+   <unittitle>Title</unittitle>
+   <unitdate label="Accumulation"></unitdate>
+   <unitdate label="Created"></unitdate>
+   <origination label="Creator">Creator</origination>
+   <physdesc>Extent and media</physdesc>
+   <langmaterial>Language</langmaterial>
+  </did>
+
+  <bioghist>
+   <head>Biography or History</head>
+   <p>Administrative/biographical history</p>
+  </bioghist>
+  <custodhist>
+   <head>Custodial history</head>
+   <p>Archival history</p>
+  </custodhist>
+  <acqinfo>
+   <head>Acquisition Information</head>
+   <p>Immediate source of acquisition</p>
+  </acqinfo>
+  <scopecontent>
+   <head>Scope and content</head>
+   <p>Scope and content</p>
+  </scopecontent>
+  <appraisal>
+   <head>Appraisal Information</head>
+   <p>Appraisal, destruction and scheduling info</p>
+  </appraisal>
+  <accruals>
+   <head>Accruals</head>
+   <p>Accruals (yes/no, quantity and frequency)</p>
+  </accruals>
+  <arrangement>
+   <head>Arrangement</head>
+   <p>System of arrangement</p>
+  </arrangement>
+  <accessrestrict>
+   <head>Conditions governing access</head>
+   <p>Conditions governing access</p>
+  </accessrestrict>
+  <userestrict>
+   <head>Conditions Governing Use</head>
+   <p>Conditions governing reproduction</p>
+  </userestrict>
+  <phystech>
+   <head>Physical Characteristics and Technical Requirements</head>
+   <p>Physical characteristics / technical requirements</p>
+  </phystech>
+  <otherfindaid>
+   <head>Other Finding Aid</head>
+   <p>Finding aids</p>
+  </otherfindaid>
+  <originalsloc>
+   <head>Location of Originals</head>
+   <p>Location of originals</p>
+  </originalsloc>
+  <altformavail>
+   <head>Alternative Form Available</head>
+   <p>Location of copies</p>
+  </altformavail>
+  <relatedmaterial>
+   <head>Related Material</head>
+   <p>Related records</p>
+  </relatedmaterial>
+  <bibliography>
+   <head>Bibliography</head>
+   <p>Publication note</p>
+  </bibliography>
+  <odd>
+   <head>Other Descriptive Data</head>
+   <note>
+    <p>Note</p>
+   </note>
+  </odd>
+  <processinfo>
+   <head>Processing Information</head>
+   <p>Archivist's notes</p>
+  </processinfo>
+ </archdesc>
+</ead:ead>

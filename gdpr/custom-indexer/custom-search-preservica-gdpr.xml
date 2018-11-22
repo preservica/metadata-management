@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sample custom indexer for the OAI Dublin Core schema -->
+<index xmlns="http://www.preservica.com/customindex/v1">
+	<schemaName>Preservica GDPR</schemaName>
+	<schemaUri>http://www.preservica.com/gdpr/v1</schemaUri>
+	<shortName>gdpr</shortName>
+	
+	<!-- Text fields for each defined field in DC. These fields are set to sortable=true because the assumption
+	is that they will be single values, and sorting may be useful.
+	
+	If you want to have multiple values for the same field (e.g. two dc:subject elements in the same metadata
+	block), do not set sortable=true.
+	
+	See the System Administration Guide about custom search indexers for more details. -->
+	<term indexName="personaldata" displayName="Personal Data (Yes/No/Needs Investigation)" xpath="//gdpr:personaldata" indexType="STRING_DEFAULT" sortable="true" />
+	<term indexName="recordobjected" displayName="Record Objected (True/False)" xpath="//gdpr:recordobjected" indexType="STRING_DEFAULT" sortable="true" />
+	
+	<term indexName="personaldata_facet" displayName="Personal Data Facet(Yes/No/Needs Investigation)" xpath="//gdpr:personaldata" indexType="STRING_FACET" sortable="true" />
+	<term indexName="recordobjected_facet" displayName="Record Objected Facet(True/False)" xpath="//gdpr:recordobjected" indexType="STRING_FACET" sortable="true" />
+
+	<term indexName="recipientdisclosurecategory" displayName="Disclosure Category for Recipient" xpath="//gdpr:recipientdisclosurecategory" sortable="true"/>
+	
+	<term indexName="recordobjecteddate" displayName="Record Objected Date" xpath="//gdpr:recordobjecteddate" indexType="DATE" sortable="true"/>
+	<term indexName="timelimitforerasure" displayName="Erasure Time Limit" xpath="//gdpr:timelimitforerasure" indexType="DATE" sortable="true"/>
+
+</index>

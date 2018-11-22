@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--This is a mandatory field-->
+<UploadWizardConfiguration xmlns="http://preservica.com/UploadWizard/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!--This tells Preservica which S3 bucket to place the SIP into-->
+    <!--It should match the bucket used by one of your workflows, e.g. manual or auto-->
+    <!--For Example com.preservica.demobucket.autoupload-->
+    <UploadDestination storageType="S3">MYBUCKET</UploadDestination>
+
+    <!--This section determins how your SIP is built-->
+    <SipOptions>
+        <!--This tells the wizard to include empty fields from an XML template for another non-XIP schema-->
+        <!--This allows you to add these as editable fields below-->
+        <!--The XML namespace and prefix specified here are for the main namespace of the template-->
+        <!--If the XML template uses additional XML namespaces, these can be referenced in the <Namespaces> section below-->
+        <!--The XIP namespace is always included by default-->
+        <!--<DeliverableUnitTemplateNamespace xpathPrefix="ead">urn:isbn:1-931666-22-9</DeliverableUnitTemplateNamespace>-->
+
+        <!--This tells the wizard to treat the parent folder as the DU name-->
+        <!--So loading c:/myfolder into mycollection creates a DU called myfolder in mycollection-->
+        <!--Setting it to true would take each subfolder of myfolder and create a DU in mycollection-->
+        <IgnoreParentFolder>false</IgnoreParentFolder>
+
+        <!--This tells the wizard to create a child DU for each folder it finds-->
+        <!--Setting it to SingleDeliverableUnit creates a single DU for all the files and folders-->
+        <!--Setting it to EachFolderAndFileAsDeliverableUnit creates a separate DU for each folder and file-->
+        <SIPStructure>EachFolderAsDeliverableUnit</SIPStructure>
+
+        <!--This tells the wizard which fixity algorithms to use to create checksums on the files-->
+        <FixityAlgorithms>
+            <Name>MD5</Name>
+            <Name>SHA-1</Name>
+        </FixityAlgorithms>
+
+        <!--This tells the wizard which file extensions to treat as packages-->
+        <!--It must match those supported by the ingest workflows-->
+        <!--If this is missing the packages will not be unpacked during ingest-->
+        <PackageExtensions>
+            <Name>zip</Name>
+            <Name>ZIP</Name>
+            <Name>pst</Name>
+            <Name>PST</Name>
+            <Name>cmp</Name>
+            <Name>CMP</Name>
+            <Name>mbox</Name>
+            <Name>MBOX</Name>
+            <Name>iso</Name>
+            <Name>ISO</Name>
+            <Name>hfs</Name>
+            <Name>HFS</Name>
+        </PackageExtensions>
+
+    </SipOptions>
+
+    <!--This sections tells the wizard how to build the metadata form for the user to fill in-->
+    <WizardElement>
+        <!--This adds an editable string field for xip title-->
+        <!--The [not(xip:ParentRef)] part makes this apply only to the top level DU-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit[not(xip:ParentRef)]/xip:Title"
+            type="xs:string" displayName="Deliverable Unit Title" mandatory="true" edit="true" show="true"
+            tooltip="This field becomes the title for the deliverable unit"/>
+
+        <!--This adds an editable string field for xip scope and content-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit[not(xip:ParentRef)]/xip:ScopeAndContent"
+            type="xs:string" displayName="Scope and Content" mandatory="true" edit="true" show="true"
+            tooltip="This field becomes the description for the deliverable unit"/>
+
+        <!--This adds an editable string field for xip catalogue reference-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit[not(xip:ParentRef)]/xip:CatalogueReference"
+            type="xs:string" displayName="Catalogue Reference" mandatory="true" edit="true" show="true"
+            tooltip="This field is the Catalogue Reference"/>
+
+        <!--This adds a space to the form-->
+        <GUIElement space="true"/>
+
+        <!--This adds an editable date field for xip coverage from-->
+        <!--Because the [not(xip:ParentRef)] is missing this will apply to the parent DU and children-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit/xip:CoverageFrom"
+            type="xs:dateTime" displayName="Coverage From" edit="true" show="true"
+            tooltip="This is the DU Coverage From Field"/>
+
+        <!--This adds an editable date field for xip coverage to-->
+        <!--The [not(xip:ParentRef)] has been removed meaning this applies to all DUs in the SIP-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit/xip:CoverageTo"
+            type="xs:dateTime" displayName="Coverage To" edit="true" show="true"
+            tooltip="This is the DU Coverage To Field"/>
+
+        <!--This adds an editable boolean field for xip digital surrogate-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit/xip:DigitalSurrogate"
+            type="xs:boolean" displayName="Digital Surrogate" default="false" edit="true" show="true"
+            tooltip="This is the Digital Surrogate True/False field"/>
+
+        <!--This adds an editable drop down list for security tag-->
+        <!--The list should match tags you have defined in the system-->
+        <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit/xip:SecurityTag"
+            type="xs:string" displayName="Security Tag" edit="true" show="true"
+            tooltip="This Security Tag for All Deliverable Units">
+            <Options>
+                <Option>open</Option>
+                <Option>closed</Option>
+            </Options>
+        </MetadataElement>
+
+        <!--This adds a title to the form-->
+        <!-- <GUIElement header="EAD Extensions" /> -->
+
+        <!--This adds an editable EAD Identifier-->
+        <!--As above the [not(xip:ParentRef)] part makes this apply only to the top level DU-->
+        <!-- <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit[not(xip:ParentRef)]/xip:Metadata/ead:ead/ead:eadheader/ead:eadid"
+            type="xs:string" displayName="AD Identifier" edit="true" show="true"
+            tooltip="This is an EAD field"/> -->
+
+        <!--This adds an editable EAD Title-->
+        <!-- <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit[not(xip:ParentRef)]/xip:Metadata/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper"
+            type="xs:string" displayName="Title Proper of the Finding Aid" edit="true" show="true"
+            tooltip="This is an EAD field"/> -->
+
+        <!--This adds an editable EAD Creation Date-->
+        <!-- <MetadataElement xpath="/xip:XIP/xip:DeliverableUnits/xip:DeliverableUnit/xip:Metadata/ead:ead/ead:eadheader/ead:profiledesc/ead:creation/ead:date"
+            type="xs:dateTime" displayName="AD Creation date" edit="true" show="true"
+            tooltip="This is an EAD field"/> -->
+
+    </WizardElement>
+
+    <!--
+      Using the elements <CollectionTemplateNamespace>, <DeliverableUnitTemplateNamespace> and <DigitalFileTemplateNamespace> above,
+      it is possible to add one or more <MetadataElement> nodes from a template for a non-XIP schema by defining the namespace and prefix.
+      The prefix is used in the xpath attribute of the <MetadataElement> to identify the element from the template that is set.
+      If the non-XIP template contains additional namespaces which could be referred to by the xpath, the namespace URI and prefix
+      can be defined below. For example, the Dublin Core template provided by Preservica contains elements from both the oai_dc namespace
+      (http://www.openarchives.org/OAI/2.0/oai_dc/) and the Simple Dublin core namespace (http://purl.org/dc/elements/1.1/).
+      If the template is included above with the element:
+
+          <DeliverableUnitTemplateNamespace xpathPrefix="oai_dc">http://www.openarchives.org/OAI/2.0/oai_dc/</DeliverableUnitTemplateNamespace>
+
+      then the Simple Dublin Core XML namespace can be mapped to the dc prefix using a <Namespaces> section as illustrated below.
+      Both the oai_dc prefix and the dc prefix can then be used in xpath expressions for <MetadataElement> nodes.
+     -->
+    <!--
+    <Namespaces>
+        <Namespace>
+            <Prefix>dc</Prefix>
+            <URI>http://purl.org/dc/elements/1.1/</URI>
+        </Namespace>
+    </Namespaces>
+    -->
+
+</UploadWizardConfiguration>

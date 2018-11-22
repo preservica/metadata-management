@@ -1,2 +1,2 @@
 # metadata-management
-This repository contains examples of XSLT files to control viewing/editing of metadata schemas in Preservica
+Examples of XML and XSLT files that can be used to control adding/viewing/editing/indexing of metadata in Preservica

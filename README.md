@@ -36,4 +36,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Support
 
-Support for this project is provided by its community of contributors. Preservica Ltd/Inc does not officially support any of the code included in this project. Users can choose to use any code included in this project at their own risk.
+Support for this project is provided by its community of contributors. Preservica does not support any of the code included in this project. Users choose to use any code included in this project at their own risk.

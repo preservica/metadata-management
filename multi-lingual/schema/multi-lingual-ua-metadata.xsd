@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A simple metadata schema for a single top-level entity called "lingual" which contains two string entities, title -->
+<!-- and description. Each of these has a "lang" attribute indicating the natural language used for the metadata value -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ml="http://www.preservica.com/example/multi-lingual-ua-metadata/v1"
+           targetNamespace="http://www.preservica.com/example/multi-lingual-ua-metadata/v1"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <!-- Base element -->
+    <xs:element name="lingual" type="ml:multiLingualType" />
+
+    <!-- Base element type -->
+    <xs:complexType name="multiLingualType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="title" type="ml:stringType" />
+            <xs:element name="description" type="ml:stringType" />
+        </xs:choice>
+    </xs:complexType>
+
+    <!-- String type with attribute called "lang" -->
+    <xs:complexType name="stringType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="lang" type="xs:string" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+</xs:schema>

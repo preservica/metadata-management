@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- A basic template illustrating usage -->
+<ml:lingual xmlns:ml="http://www.preservica.com/example/multi-lingual-ua-metadata/v1">
+    <ml:title lang="en">The title is in English</ml:title>
+    <ml:description lang="fr">Cette description est en Français</ml:description>
+</ml:lingual>
